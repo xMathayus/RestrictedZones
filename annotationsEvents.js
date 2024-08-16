@@ -28,6 +28,7 @@ anno.on('createAnnotation', async (annotation, overrideId) => {
 $('#saveZoneOptionsButton').click(function () {
     let zoneName = $('#zoneNameInput').val();
     const allowPvP = $('#allowPvPInput').is(':checked');
+    const allowPalPvp = $('#allowPalPvpInput').is(':checked');
 
     // Assign a default name if no name is provided
     if (!zoneName.trim()) {
@@ -39,11 +40,12 @@ $('#saveZoneOptionsButton').click(function () {
         editingZoneElement.attr('zone-name', zoneName);
         editingZoneElement.find('.zone-name-label').text(zoneName);
         editingZoneElement.find('.allow-pvp-checkbox').prop('checked', allowPvP);
+        editingZoneElement.find('.allow-pal-pvp-checkbox').prop('checked', allowPalPvp);
 
         editingZoneElement = null; // Reset after editing
     } else {
         // Create new zone (enabled by default)
-        $('#zones').append(CreateInput(zoneName, currentAnnotationId, allowPvP));
+        $('#zones').append(CreateInput(zoneName, currentAnnotationId, allowPvP, allowPalPvp));
         globaIDIndex++;
     }
 
@@ -76,10 +78,12 @@ $('.input-overlay').on('click', '.zone-name-label', function () {
     // Get current zone values
     const currentName = currentZoneElement.attr('zone-name');
     const allowPvP = currentZoneElement.find('.allow-pvp-checkbox').is(':checked');
+    const allowPalPvp = currentZoneElement.find('.allow-pal-pvp-checkbox').is(':checked');
 
     // Populate the modal with the current values
     $('#zoneNameInput').val(currentName);
     $('#allowPvPInput').prop('checked', allowPvP);
+    $('#allowPalPvpInput').prop('checked', allowPalPvp);
 
     // Set the editing element
     editingZoneElement = currentZoneElement;
@@ -96,6 +100,7 @@ $('#exportButton').click(function () {
         const zoneId = row.attr('zone-id');
         const zoneName = row.attr('zone-name');
         const allowPvP = row.find('.allow-pvp-checkbox').is(':checked');
+        const allowPalPvp = row.find('.allow-pal-pvp-checkbox').is(':checked');
         const cords = [];
 
         // Get the annotation associated with this zone
@@ -123,6 +128,7 @@ $('#exportButton').click(function () {
                 name: zoneName,
                 enabled: true, // All zones are enabled by default
                 allowPvP: allowPvP,
+                allowPalPvp: allowPalPvp,
                 cords: cords
             });
         }
@@ -133,7 +139,7 @@ $('#exportButton').click(function () {
 
     zones.forEach(zone => {
         luaString += `        -- ${zone.name}\n`;
-        luaString += `        {\n            enabled = true, -- Zone is always enabled\n            allowPvP = ${zone.allowPvP}, -- Toggle for allowing PvP damage\n            cords = {\n`;
+        luaString += `        {\n            enabled = true, -- Zone is always enabled\n            allowPvP = ${zone.allowPvP}, -- Toggle for allowing PvP damage\n            allowPalPvp = ${zone.allowPalPvp}, -- Toggle for player-controlled NPCs\n            cords = {\n`;
         zone.cords.forEach(cord => {
             luaString += `                { x = ${cord.x}, y = ${cord.y} },\n`;
         });
@@ -153,12 +159,13 @@ $('#exportButton').click(function () {
     document.body.removeChild(a);
 });
 
-function CreateInput(zoneName, annotationId, allowPvP) {
+function CreateInput(zoneName, annotationId, allowPvP, allowPalPvp) {
     const inputRow = $(`
     <div class="input-row row no-gutters" zone-id="${annotationId}" zone-name="${zoneName}" style="background-color: rgba(0, 0, 0, 0.7); border: 1px solid #ccc; box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.5); padding: 2px; margin-bottom: 3px;">
         <div class="col-12 d-flex align-items-center">
             <span class="zone-name-label" style="margin-right: 5px; color: white; font-weight: bold; font-size: 18px; cursor: pointer;">${zoneName}</span>
             <input type="checkbox" class="allow-pvp-checkbox" ${allowPvP ? 'checked' : ''} title="Allow PvP" style="margin-left: 5px; margin-right: 3px;"> <span style="color: white; font-size: 16px;">Allow PvP</span>
+            <input type="checkbox" class="allow-pal-pvp-checkbox" ${allowPalPvp ? 'checked' : ''} title="Allow Pal PvP" style="margin-left: 5px; margin-right: 3px;"> <span style="color: white; font-size: 16px;">Allow Pal PvP</span>
         </div>
     </div>
     `);
