@@ -1,6 +1,21 @@
 let globaIDIndex = 0;
 let currentAnnotationId = null;
 let editingZoneElement = null;
+let pendingExport = false; // To track if an export is pending
+
+// Utility function to check if all zones have custom names
+function checkZonesForCustomNames() {
+    let allCustomNames = true;
+    $('#zones .input-row').each(function () {
+        const zoneName = $(this).attr('zone-name');
+        if (zoneName.startsWith('Zone ')) {
+            allCustomNames = false;
+            return false; // Break out of the loop if a default name is found
+        }
+    });
+    // Enable or disable the export button based on the check
+    $('#exportButton').prop('disabled', !allCustomNames);
+}
 
 anno.on('createAnnotation', async (annotation, overrideId) => {
     overrideId(String(globaIDIndex));
@@ -33,6 +48,15 @@ $('#saveZoneOptionsButton').click(function () {
     }
 
     $('#zoneOptionsModal').modal('hide');
+
+    // Check if all zones have custom names and update the export button state
+    checkZonesForCustomNames();
+
+    // If an export was pending, trigger the export process now
+    if (pendingExport) {
+        pendingExport = false;
+        $('#exportButton').trigger('click');
+    }
 });
 
 anno.on('selectAnnotation', function (annotation) {
@@ -42,6 +66,7 @@ anno.on('selectAnnotation', function (annotation) {
 
 anno.on('deleteAnnotation', function (annotation) {
     $(`div[zone-id='${annotation.id}']`).remove();
+    checkZonesForCustomNames(); // Recheck after deletion
 });
 
 $('.input-overlay').on('click', '.zone-name-label', function () {
@@ -92,12 +117,15 @@ $('#exportButton').click(function () {
             }
         }
 
-        zones.push({
-            name: zoneName,
-            enabled: true, // All zones are enabled by default
-            allowPvP: allowPvP,
-            cords: cords
-        });
+        // Only add the zone if it has valid coordinates
+        if (cords.length > 0) {
+            zones.push({
+                name: zoneName,
+                enabled: true, // All zones are enabled by default
+                allowPvP: allowPvP,
+                cords: cords
+            });
+        }
     });
 
     // Build the Lua string
@@ -137,3 +165,8 @@ function CreateInput(zoneName, annotationId, allowPvP) {
 
     return inputRow;
 }
+
+// Initial check when the page loads
+$(document).ready(function() {
+    checkZonesForCustomNames();
+});
