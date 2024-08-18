@@ -27,8 +27,12 @@ anno.on('createAnnotation', async (annotation, overrideId) => {
 
 $('#saveZoneOptionsButton').click(function () {
     let zoneName = $('#zoneNameInput').val();
+    const allowBuild = $('#allowBuildInput').is(':checked');
+    const allowDismantle = $('#allowDismantleInput').is(':checked');
+    const allowObjectDamage = $('#allowObjectDamageInput').is(':checked');
     const allowPvP = $('#allowPvPInput').is(':checked');
     const allowPalPvp = $('#allowPalPvpInput').is(':checked');
+    const allowNpcDamage = $('#allowNpcDamageInput').is(':checked');
 
     // Assign a default name if no name is provided
     if (!zoneName.trim()) {
@@ -39,13 +43,17 @@ $('#saveZoneOptionsButton').click(function () {
         // Update existing zone
         editingZoneElement.attr('zone-name', zoneName);
         editingZoneElement.find('.zone-name-label').text(zoneName);
+        editingZoneElement.find('.allow-build-checkbox').prop('checked', allowBuild);
+        editingZoneElement.find('.allow-dismantle-checkbox').prop('checked', allowDismantle);
+        editingZoneElement.find('.allow-object-damage-checkbox').prop('checked', allowObjectDamage);
         editingZoneElement.find('.allow-pvp-checkbox').prop('checked', allowPvP);
         editingZoneElement.find('.allow-pal-pvp-checkbox').prop('checked', allowPalPvp);
+        editingZoneElement.find('.allow-npc-damage-checkbox').prop('checked', allowNpcDamage);
 
         editingZoneElement = null; // Reset after editing
     } else {
         // Create new zone (enabled by default)
-        $('#zones').append(CreateInput(zoneName, currentAnnotationId, allowPvP, allowPalPvp));
+        $('#zones').append(CreateInput(zoneName, currentAnnotationId, allowBuild, allowDismantle, allowObjectDamage, allowPvP, allowPalPvp, allowNpcDamage));
         globaIDIndex++;
     }
 
@@ -77,13 +85,21 @@ $('.input-overlay').on('click', '.zone-name-label', function () {
 
     // Get current zone values
     const currentName = currentZoneElement.attr('zone-name');
+    const allowBuild = currentZoneElement.find('.allow-build-checkbox').is(':checked');
+    const allowDismantle = currentZoneElement.find('.allow-dismantle-checkbox').is(':checked');
+    const allowObjectDamage = currentZoneElement.find('.allow-object-damage-checkbox').is(':checked');
     const allowPvP = currentZoneElement.find('.allow-pvp-checkbox').is(':checked');
     const allowPalPvp = currentZoneElement.find('.allow-pal-pvp-checkbox').is(':checked');
+    const allowNpcDamage = currentZoneElement.find('.allow-npc-damage-checkbox').is(':checked');
 
     // Populate the modal with the current values
     $('#zoneNameInput').val(currentName);
+    $('#allowBuildInput').prop('checked', allowBuild);
+    $('#allowDismantleInput').prop('checked', allowDismantle);
+    $('#allowObjectDamageInput').prop('checked', allowObjectDamage);
     $('#allowPvPInput').prop('checked', allowPvP);
     $('#allowPalPvpInput').prop('checked', allowPalPvp);
+    $('#allowNpcDamageInput').prop('checked', allowNpcDamage);
 
     // Set the editing element
     editingZoneElement = currentZoneElement;
@@ -99,8 +115,12 @@ $('#exportButton').click(function () {
         const row = $(this);
         const zoneId = row.attr('zone-id');
         const zoneName = row.attr('zone-name');
+        const allowBuild = row.find('.allow-build-checkbox').is(':checked');
+        const allowDismantle = row.find('.allow-dismantle-checkbox').is(':checked');
+        const allowObjectDamage = row.find('.allow-object-damage-checkbox').is(':checked');
         const allowPvP = row.find('.allow-pvp-checkbox').is(':checked');
         const allowPalPvp = row.find('.allow-pal-pvp-checkbox').is(':checked');
+        const allowNpcDamage = row.find('.allow-npc-damage-checkbox').is(':checked');
         const cords = [];
 
         // Get the annotation associated with this zone
@@ -126,20 +146,29 @@ $('#exportButton').click(function () {
         if (cords.length > 0) {
             zones.push({
                 name: zoneName,
-                enabled: true, // All zones are enabled by default
+                allowBuild: allowBuild,
+                allowDismantle: allowDismantle,
+                allowObjectDamage: allowObjectDamage,
                 allowPvP: allowPvP,
                 allowPalPvp: allowPalPvp,
+                allowNpcDamage: allowNpcDamage,
                 cords: cords
             });
         }
     });
 
     // Build the Lua string
-    let luaString = `return {\n    SafeWorld = false, -- Toggle to prevent players from damaging objects across the whole map\n\n    restrictedZones = {\n`;
+    let luaString = `return {\n    restrictedZones = {\n`;
 
     zones.forEach(zone => {
         luaString += `        -- ${zone.name}\n`;
-        luaString += `        {\n            enabled = true, -- Zone is always enabled\n            allowPvP = ${zone.allowPvP}, -- Toggle for allowing PvP damage\n            allowPalPvp = ${zone.allowPalPvp}, -- Toggle for player-controlled NPCs\n            cords = {\n`;
+        luaString += `        {\n            allowBuild = ${zone.allowBuild},\n`;
+        luaString += `            allowDismantle = ${zone.allowDismantle},\n`;
+        luaString += `            allowObjectDamage = ${zone.allowObjectDamage},\n`;
+        luaString += `            allowPvP = ${zone.allowPvP},\n`;
+        luaString += `            allowPalPvp = ${zone.allowPalPvp},\n`;
+        luaString += `            allowNpcDamage = ${zone.allowNpcDamage},\n`;
+        luaString += `            cords = {\n`;
         zone.cords.forEach(cord => {
             luaString += `                { x = ${cord.x}, y = ${cord.y} },\n`;
         });
@@ -159,13 +188,17 @@ $('#exportButton').click(function () {
     document.body.removeChild(a);
 });
 
-function CreateInput(zoneName, annotationId, allowPvP, allowPalPvp) {
+function CreateInput(zoneName, annotationId, allowBuild, allowDismantle, allowObjectDamage, allowPvP, allowPalPvp, allowNpcDamage) {
     const inputRow = $(`
     <div class="input-row row no-gutters" zone-id="${annotationId}" zone-name="${zoneName}" style="background-color: rgba(0, 0, 0, 0.7); border: 1px solid #ccc; box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.5); padding: 2px; margin-bottom: 3px;">
         <div class="col-12 d-flex align-items-center">
             <span class="zone-name-label" style="margin-right: 5px; color: white; font-weight: bold; font-size: 18px; cursor: pointer;">${zoneName}</span>
+            <input type="checkbox" class="allow-build-checkbox" ${allowBuild ? 'checked' : ''} title="Allow Build" style="margin-left: 5px; margin-right: 3px;"> <span style="color: white; font-size: 16px;">Allow Build</span>
+            <input type="checkbox" class="allow-dismantle-checkbox" ${allowDismantle ? 'checked' : ''} title="Allow Dismantle" style="margin-left: 5px; margin-right: 3px;"> <span style="color: white; font-size: 16px;">Allow Dismantle</span>
+            <input type="checkbox" class="allow-object-damage-checkbox" ${allowObjectDamage ? 'checked' : ''} title="Allow Object Damage" style="margin-left: 5px; margin-right: 3px;"> <span style="color: white; font-size: 16px;">Allow Object Damage</span>
             <input type="checkbox" class="allow-pvp-checkbox" ${allowPvP ? 'checked' : ''} title="Allow PvP" style="margin-left: 5px; margin-right: 3px;"> <span style="color: white; font-size: 16px;">Allow PvP</span>
             <input type="checkbox" class="allow-pal-pvp-checkbox" ${allowPalPvp ? 'checked' : ''} title="Allow Pal PvP" style="margin-left: 5px; margin-right: 3px;"> <span style="color: white; font-size: 16px;">Allow Pal PvP</span>
+            <input type="checkbox" class="allow-npc-damage-checkbox" ${allowNpcDamage ? 'checked' : ''} title="Allow NPC Damage" style="margin-left: 5px; margin-right: 3px;"> <span style="color: white; font-size: 16px;">Allow NPC Damage</span>
         </div>
     </div>
     `);
