@@ -202,6 +202,13 @@
         let editingZoneElement = null;
         let pendingExport = false; // To track if an export is pending
 
+        // Utility function to hide tooltips on checkbox click
+        function hideTooltipOnCheckboxClick() {
+            $('input[type="checkbox"]').on('click', function () {
+                $(this).tooltip('hide');
+            });
+        }
+
         // Utility function to check if the export button should be enabled
         function updateExportButtonState() {
             let enableExport = true;
@@ -225,9 +232,13 @@
         }
 
         $(document).ready(function() {
-            updateExportButtonState(); // Ensure the button is disabled on page load
             // Initialize tooltips
             $('[data-bs-toggle="tooltip"]').tooltip();
+
+            // Attach event listener to hide tooltips on checkbox click
+            hideTooltipOnCheckboxClick();
+
+            updateExportButtonState(); // Ensure the button is disabled on page load
         });
 
         anno.on('createAnnotation', async (annotation, overrideId) => {
