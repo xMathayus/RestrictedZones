@@ -87,7 +87,6 @@
     </div>
 
     <div class="button-overlay d-flex flex-column">
-        <!-- Initially disable the export button -->
         <button id="exportButton" class="btn btn-primary btn-sm" disabled>Export</button>
     </div>
 
@@ -103,53 +102,85 @@
                         <label for="zoneNameInput" class="form-label">Zone Name</label>
                         <input type="text" class="form-control" id="zoneNameInput">
                     </div>
-                    <div class="form-check">
-                        <input class="form-check-input" type="checkbox" value="" id="allowBuildInput" data-bs-toggle="tooltip" data-bs-placement="right" title="Allows players to build within the zone.">
-                        <label class="form-check-label" for="allowBuildInput">
-                            Allow Build
-                        </label>
+
+                    <div class="alert alert-info" role="alert">
+                        <strong>Global Settings</strong> apply to the entire map. However, <strong>Zone Settings</strong> can override these global values for specific areas.
                     </div>
-                    <div class="form-check">
-                        <input class="form-check-input" type="checkbox" value="" id="allowDismantleInput" data-bs-toggle="tooltip" data-bs-placement="right" title="Allows players to dismantle objects within the zone.">
-                        <label class="form-check-label" for="allowDismantleInput">
-                            Allow Dismantle
-                        </label>
+
+                    <!-- Global Settings Section -->
+                    <div>
+                        <h6><a href="#" id="toggleGlobalSettings" data-bs-toggle="collapse" data-bs-target="#globalSettingsSection" aria-expanded="true" aria-controls="globalSettingsSection">Global Settings</a></h6>
+                        <div id="globalSettingsSection" class="collapse show">
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="globalAllowBuildInput" data-bs-toggle="tooltip" data-bs-placement="right" title="Global setting to allow or disallow building across the entire map.">
+                                <label class="form-check-label" for="globalAllowBuildInput">Allow Build</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="globalAllowDismantleInput" data-bs-toggle="tooltip" data-bs-placement="right" title="Global setting to allow or disallow dismantling across the entire map.">
+                                <label class="form-check-label" for="globalAllowDismantleInput">Allow Dismantle</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="globalAllowObjectDamageInput" data-bs-toggle="tooltip" data-bs-placement="right" title="Global setting to allow or disallow object damage across the entire map.">
+                                <label class="form-check-label" for="globalAllowObjectDamageInput">Allow Object Damage</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="globalAllowPvPInput" data-bs-toggle="tooltip" data-bs-placement="right" title="Global setting to allow or disallow PvP damage across the entire map.">
+                                <label class="form-check-label" for="globalAllowPvPInput">Allow PvP</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="globalAllowPalPvpInput" data-bs-toggle="tooltip" data-bs-placement="right" title="Global setting to allow or disallow player-controlled NPCs (Pals) to engage in PvP across the entire map.">
+                                <label class="form-check-label" for="globalAllowPalPvpInput">Allow Pal PvP</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="globalAllowNpcDamageInput" data-bs-toggle="tooltip" data-bs-placement="right" title="Global setting to allow or disallow wild NPCs to damage players across the entire map.">
+                                <label class="form-check-label" for="globalAllowNpcDamageInput">Allow NPC Damage</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="globalAllowPlayerDamageToNpcInput" data-bs-toggle="tooltip" data-bs-placement="right" title="Global setting to allow or disallow players to damage wild NPCs across the entire map.">
+                                <label class="form-check-label" for="globalAllowPlayerDamageToNpcInput">Allow Player Damage To NPC</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="globalAllowPalDamageToNpcInput" data-bs-toggle="tooltip" data-bs-placement="right" title="Global setting to allow or disallow player-controlled NPCs (Pals) to damage wild NPCs across the entire map.">
+                                <label class="form-check-label" for="globalAllowPalDamageToNpcInput">Allow Pal Damage To NPC</label>
+                            </div>
+                        </div>
                     </div>
-                    <div class="form-check">
-                        <input class="form-check-input" type="checkbox" value="" id="allowObjectDamageInput" data-bs-toggle="tooltip" data-bs-placement="right" title="Allows objects to be damaged within the zone.">
-                        <label class="form-check-label" for="allowObjectDamageInput">
-                            Allow Object Damage
-                        </label>
-                    </div>
-                    <div class="form-check">
-                        <input class="form-check-input" type="checkbox" value="" id="allowPvPInput" data-bs-toggle="tooltip" data-bs-placement="right" title="Allows players to damage each other within the zone.">
-                        <label class="form-check-label" for="allowPvPInput">
-                            Allow PvP
-                        </label>
-                    </div>
-                    <div class="form-check">
-                        <input class="form-check-input" type="checkbox" value="" id="allowPalPvpInput" data-bs-toggle="tooltip" data-bs-placement="right" title="Allows player-controlled NPCs to attack within the zone.">
-                        <label class="form-check-label" for="allowPalPvpInput">
-                            Allow Pal PvP
-                        </label>
-                    </div>
-                    <div class="form-check">
-                        <input class="form-check-input" type="checkbox" value="" id="allowNpcDamageInput" data-bs-toggle="tooltip" data-bs-placement="right" title="Allows wild NPCs to damage players within the zone.">
-                        <label class="form-check-label" for="allowNpcDamageInput">
-                            Allow NPC Damage
-                        </label>
-                    </div>
-                    <div class="form-check">
-                        <input class="form-check-input" type="checkbox" value="" id="allowPlayerDamageToNpcInput" data-bs-toggle="tooltip" data-bs-placement="right" title="Allows players to damage wild NPCs within the zone.">
-                        <label class="form-check-label" for="allowPlayerDamageToNpcInput">
-                            Allow Player Damage To NPC
-                        </label>
-                    </div>
-                    <div class="form-check">
-                        <input class="form-check-input" type="checkbox" value="" id="allowPalDamageToNpcInput" data-bs-toggle="tooltip" data-bs-placement="right" title="Allows player-controlled NPCs to damage wild NPCs within the zone.">
-                        <label class="form-check-label" for="allowPalDamageToNpcInput">
-                            Allow Pal Damage To NPC
-                        </label>
+
+                    <!-- Zone Settings Section -->
+                    <div class="mt-4">
+                        <h6>Zone Settings</h6>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" id="allowBuildInput" data-bs-toggle="tooltip" data-bs-placement="right" title="Overrides global setting. Allows or disallows building within this specific zone.">
+                            <label class="form-check-label" for="allowBuildInput">Allow Build</label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" id="allowDismantleInput" data-bs-toggle="tooltip" data-bs-placement="right" title="Overrides global setting. Allows or disallows dismantling within this specific zone.">
+                            <label class="form-check-label" for="allowDismantleInput">Allow Dismantle</label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" id="allowObjectDamageInput" data-bs-toggle="tooltip" data-bs-placement="right" title="Overrides global setting. Allows or disallows object damage within this specific zone.">
+                            <label class="form-check-label" for="allowObjectDamageInput">Allow Object Damage</label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" id="allowPvPInput" data-bs-toggle="tooltip" data-bs-placement="right" title="Overrides global setting. Allows or disallows PvP damage within this specific zone.">
+                            <label class="form-check-label" for="allowPvPInput">Allow PvP</label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" id="allowPalPvpInput" data-bs-toggle="tooltip" data-bs-placement="right" title="Overrides global setting. Allows or disallows player-controlled NPCs (Pals) to engage in PvP within this specific zone.">
+                            <label class="form-check-label" for="allowPalPvpInput">Allow Pal PvP</label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" id="allowNpcDamageInput" data-bs-toggle="tooltip" data-bs-placement="right" title="Overrides global setting. Allows or disallows wild NPCs to damage players within this specific zone.">
+                            <label class="form-check-label" for="allowNpcDamageInput">Allow NPC Damage</label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" id="allowPlayerDamageToNpcInput" data-bs-toggle="tooltip" data-bs-placement="right" title="Overrides global setting. Allows or disallows players to damage wild NPCs within this specific zone.">
+                            <label class="form-check-label" for="allowPlayerDamageToNpcInput">Allow Player Damage To NPC</label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" id="allowPalDamageToNpcInput" data-bs-toggle="tooltip" data-bs-placement="right" title="Overrides global setting. Allows or disallows player-controlled NPCs (Pals) to damage wild NPCs within this specific zone.">
+                            <label class="form-check-label" for="allowPalDamageToNpcInput">Allow Pal Damage To NPC</label>
+                        </div>
                     </div>
                 </div>
                 <div class="modal-footer">
@@ -213,6 +244,7 @@
         let currentAnnotationId = null;
         let editingZoneElement = null;
         let pendingExport = false; // To track if an export is pending
+        let firstZoneCreated = false; // Track if this is the first zone created
 
         // Utility function to hide tooltips on checkbox click
         function hideTooltipOnCheckboxClick() {
@@ -251,6 +283,19 @@
 
             hideTooltipOnCheckboxClick();
             updateExportButtonState(); // Ensure the button is disabled on page load
+
+            // Handle global settings toggle visibility
+            $('#toggleGlobalSettings').on('click', function () {
+                const isExpanded = $(this).attr('aria-expanded') === 'true';
+                $(this).attr('aria-expanded', !isExpanded);
+            });
+
+            // Enable Shift+LeftClick to create zones
+            anno.on('startSelection', function (event) {
+                if (!event.originalEvent.shiftKey) {
+                    event.preventDefault(); // Prevent the selection if Shift is not held
+                }
+            });
         });
 
         anno.on('createAnnotation', async (annotation, overrideId) => {
@@ -262,6 +307,15 @@
 
             // Show the modal to get the zone options (only for initial creation)
             $('#zoneOptionsModal').modal('show');
+
+            // If it's not the first zone, minimize the global settings
+            if (firstZoneCreated) {
+                $('#globalSettingsSection').collapse('hide');
+            } else {
+                $('#globalSettingsSection').collapse('show');
+            }
+
+            firstZoneCreated = true;
         });
 
         $('#saveZoneOptionsButton').click(function () {
@@ -443,7 +497,18 @@
             });
 
             // Build the Lua string
-            let luaString = `return {\n    restrictedZones = {\n`;
+            let luaString = `local globalSettings = {\n`;
+            luaString += `    allowBuild = ${$('#globalAllowBuildInput').is(':checked')},\n`;
+            luaString += `    allowDismantle = ${$('#globalAllowDismantleInput').is(':checked')},\n`;
+            luaString += `    allowObjectDamage = ${$('#globalAllowObjectDamageInput').is(':checked')},\n`;
+            luaString += `    allowPvP = ${$('#globalAllowPvPInput').is(':checked')},\n`;
+            luaString += `    allowPalPvp = ${$('#globalAllowPalPvpInput').is(':checked')},\n`;
+            luaString += `    allowNpcDamage = ${$('#globalAllowNpcDamageInput').is(':checked')},\n`;
+            luaString += `    allowPlayerDamageToNpc = ${$('#globalAllowPlayerDamageToNpcInput').is(':checked')},\n`;
+            luaString += `    allowPalDamageToNpc = ${$('#globalAllowPalDamageToNpcInput').is(':checked')}\n`;
+            luaString += `}\n\n`;
+
+            luaString += `return {\n    globalSettings = globalSettings,\n    restrictedZones = {\n`;
 
             zones.forEach(zone => {
                 luaString += `        -- ${zone.name}\n`;
