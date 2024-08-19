@@ -305,6 +305,16 @@
             // Disable the export button when a new zone is created
             $('#exportButton').prop('disabled', true);
 
+            // Uncheck all the zone settings checkboxes by default
+            $('#allowBuildInput').prop('checked', false);
+            $('#allowDismantleInput').prop('checked', false);
+            $('#allowObjectDamageInput').prop('checked', false);
+            $('#allowPvPInput').prop('checked', false);
+            $('#allowPalPvpInput').prop('checked', false);
+            $('#allowNpcDamageInput').prop('checked', false);
+            $('#allowPlayerDamageToNpcInput').prop('checked', false);
+            $('#allowPalDamageToNpcInput').prop('checked', false);
+
             // Show the modal to get the zone options (only for initial creation)
             $('#zoneOptionsModal').modal('show');
 
