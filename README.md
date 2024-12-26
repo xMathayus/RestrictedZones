@@ -1,1 +1,1 @@
-Full credit goes to #pwanother for creating this map tool. 
+Credit goes to DecioLuvier for creating this map tool. 
