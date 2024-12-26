@@ -166,7 +166,7 @@ $('#importButton').click(function () {
 
                 $('.input-overlay').children().empty();
 
-                $('#global').append(CreateInput(DefaultPermissions, "", true));
+                $('#global').append(CreateInput(importedData.global.permissions, "", true));
 
                 importedData.zones.forEach(zones => {
 
@@ -194,7 +194,7 @@ $('#importButton').click(function () {
                     )
 
                     // Append the zone name while importing
-                    $('#zones').append(CreateInput(zones.permissions, zones.zoneName))
+                    $('#zones').append(CreateInput(zones.permissions, zones.name))
                 })
 
 
