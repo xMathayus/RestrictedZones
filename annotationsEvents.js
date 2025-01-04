@@ -273,7 +273,7 @@ function CreateInput(permissions, zoneName = "", isGlobal = false) {
                             <label class="form-check-label">Players</label>
                         </div>
                         <div class="form-check form-switch">
-                            <input class="form-check-input" val="Otomo" type="checkbox" role="switch">
+                            <input class="form-check-input" val="Companion" type="checkbox" role="switch">
                             <label class="form-check-label">Players Held Pals</label>
                         </div>
                         <div class="form-check form-switch">
@@ -281,11 +281,11 @@ function CreateInput(permissions, zoneName = "", isGlobal = false) {
                             <label class="form-check-label">Players Base Pals</label>
                         </div>
                         <div class="form-check form-switch">
-                            <input class="form-check-input" val="PalMonster" type="checkbox" role="switch">
+                            <input class="form-check-input" val="WildPal" type="checkbox" role="switch">
                             <label class="form-check-label">Wild Pals</label>
                         </div>
                         <div class="form-check form-switch">
-                            <input class="form-check-input" val="WildNPC" type="checkbox" role="switch">
+                            <input class="form-check-input" val="NPC" type="checkbox" role="switch">
                             <label class="form-check-label">Npcs</label>
                         </div>
                         <div class="form-check form-switch">
@@ -298,7 +298,7 @@ function CreateInput(permissions, zoneName = "", isGlobal = false) {
 
 
             <div class="tab-pane fade show" id="PlayersPals-${globaIDIndex}">
-                <div class="instanceType" key="Otomo">
+                <div class="instanceType" key="Companion">
                     <div class="category" key="damage">
                         <span>Can Damage:</span>
                         <div class="form-check form-switch">
@@ -306,7 +306,7 @@ function CreateInput(permissions, zoneName = "", isGlobal = false) {
                             <label class="form-check-label">Players</label>
                         </div>
                         <div class="form-check form-switch">
-                            <input class="form-check-input" val="Otomo" type="checkbox" role="switch">
+                            <input class="form-check-input" val="Companion" type="checkbox" role="switch">
                             <label class="form-check-label">Players Held Pals</label>
                         </div>
                         <div class="form-check form-switch">
@@ -314,11 +314,11 @@ function CreateInput(permissions, zoneName = "", isGlobal = false) {
                             <label class="form-check-label">Players Base Pals</label>
                         </div>
                         <div class="form-check form-switch">
-                            <input class="form-check-input" val="PalMonster" type="checkbox" role="switch">
+                            <input class="form-check-input" val="WildPal" type="checkbox" role="switch">
                             <label class="form-check-label">Wild Pals</label>
                         </div>
                         <div class="form-check form-switch">
-                            <input class="form-check-input" val="WildNPC" type="checkbox" role="switch">
+                            <input class="form-check-input" val="NPC" type="checkbox" role="switch">
                             <label class="form-check-label">Npcs</label>
                         </div>
                         <div class="form-check form-switch">
@@ -338,7 +338,7 @@ function CreateInput(permissions, zoneName = "", isGlobal = false) {
                             <label class="form-check-label">Players</label>
                         </div>
                         <div class="form-check form-switch">
-                            <input class="form-check-input" val="Otomo" type="checkbox" role="switch">
+                            <input class="form-check-input" val="Companion" type="checkbox" role="switch">
                             <label class="form-check-label">Players Held Pals</label>
                         </div>
                         <div class="form-check form-switch">
@@ -346,11 +346,11 @@ function CreateInput(permissions, zoneName = "", isGlobal = false) {
                             <label class="form-check-label">Players Base Pals</label>
                         </div>
                         <div class="form-check form-switch">
-                            <input class="form-check-input" val="PalMonster" type="checkbox" role="switch">
+                            <input class="form-check-input" val="WildPal" type="checkbox" role="switch">
                             <label class="form-check-label">Wild Pals</label>
                         </div>
                         <div class="form-check form-switch">
-                            <input class="form-check-input" val="WildNPC" type="checkbox" role="switch">
+                            <input class="form-check-input" val="NPC" type="checkbox" role="switch">
                             <label class="form-check-label">Npcs</label>
                         </div>
                         <div class="form-check form-switch">
@@ -362,7 +362,7 @@ function CreateInput(permissions, zoneName = "", isGlobal = false) {
             </div>
 
             <div class="tab-pane fade show" id="WildPals-${globaIDIndex}">
-                <div class="instanceType" key="PalMonster">
+                <div class="instanceType" key="WildPal">
                     <div class="category" key="damage">
                         <span>Can Damage:</span>
                         <div class="form-check form-switch">
@@ -370,7 +370,7 @@ function CreateInput(permissions, zoneName = "", isGlobal = false) {
                             <label class="form-check-label">Players</label>
                         </div>
                         <div class="form-check form-switch">
-                            <input class="form-check-input" val="Otomo" type="checkbox" role="switch">
+                            <input class="form-check-input" val="Companion" type="checkbox" role="switch">
                             <label class="form-check-label">Players Held Pals</label>
                         </div>
                         <div class="form-check form-switch">
@@ -378,11 +378,11 @@ function CreateInput(permissions, zoneName = "", isGlobal = false) {
                             <label class="form-check-label">Players Base Pals</label>
                         </div>
                         <div class="form-check form-switch">
-                            <input class="form-check-input" val="PalMonster" type="checkbox" role="switch">
+                            <input class="form-check-input" val="WildPal" type="checkbox" role="switch">
                             <label class="form-check-label">Wild Pals</label>
                         </div>
                         <div class="form-check form-switch">
-                            <input class="form-check-input" val="WildNPC" type="checkbox" role="switch">
+                            <input class="form-check-input" val="NPC" type="checkbox" role="switch">
                             <label class="form-check-label">Npcs</label>
                         </div>
                         <div class="form-check form-switch">
@@ -394,7 +394,7 @@ function CreateInput(permissions, zoneName = "", isGlobal = false) {
             </div>
 
             <div class="tab-pane fade show" id="Npcs-${globaIDIndex}">
-                <div class="instanceType" key="WildNPC">
+                <div class="instanceType" key="NPC">
                     <div class="category" key="damage">
                         <span>Can Damage:</span>
                         <div class="form-check form-switch">
@@ -402,7 +402,7 @@ function CreateInput(permissions, zoneName = "", isGlobal = false) {
                             <label class="form-check-label">Players</label>
                         </div>
                         <div class="form-check form-switch">
-                            <input class="form-check-input" val="Otomo" type="checkbox" role="switch">
+                            <input class="form-check-input" val="Companion" type="checkbox" role="switch">
                             <label class="form-check-label">Players Held Pals</label>
                         </div>
                         <div class="form-check form-switch">
@@ -410,11 +410,11 @@ function CreateInput(permissions, zoneName = "", isGlobal = false) {
                             <label class="form-check-label">Players Base Pals</label>
                         </div>
                         <div class="form-check form-switch">
-                            <input class="form-check-input" val="PalMonster" type="checkbox" role="switch">
+                            <input class="form-check-input" val="WildPal" type="checkbox" role="switch">
                             <label class="form-check-label">Wild Pals</label>
                         </div>
                         <div class="form-check form-switch">
-                            <input class="form-check-input" val="WildNPC" type="checkbox" role="switch">
+                            <input class="form-check-input" val="NPC" type="checkbox" role="switch">
                             <label class="form-check-label">Npcs</label>
                         </div>
                         <div class="form-check form-switch">
