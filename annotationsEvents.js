@@ -265,6 +265,10 @@ function CreateInput(permissions, zoneName = "", isGlobal = false) {
                             <input class="form-check-input" val="Dismantle" type="checkbox" role="switch">
                             <label class="form-check-label"> Dismantle Structures</label>
                         </div>
+                        <div class="form-check form-switch">
+                            <input class="form-check-input" val="Fly" type="checkbox" role="switch">
+                            <label class="form-check-label"> Fly Mount</label>
+                        </div>
                     </div>
                     <div class="category" key="damage">
                         <span>Can Damage:</span>
