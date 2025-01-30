@@ -267,7 +267,7 @@ function CreateInput(permissions, zoneName = "", isGlobal = false) {
                         </div>
                         <div class="form-check form-switch">
                             <input class="form-check-input" val="Fly" type="checkbox" role="switch">
-                            <label class="form-check-label"> Fly Pal</label>
+                            <label class="form-check-label"> Fly Pals</label>
                         </div>
                     </div>
                     <div class="category" key="damage">
